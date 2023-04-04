@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/Header";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { Project, Projects, Rates } from "./pages";
+import ProjectContextProvider from "./context/project/provider";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="absolute inset-0 flex flex-col">
+        <Header />
+
+        <div className="page-container">
+          <Routes>
+            <Route path="/" Component={Projects} />
+            <Route path="/rates" Component={Rates} />
+            <Route path="/projects" Component={Projects} />
+            <Route
+              path="/projects/:id"
+              element={
+                <ProjectContextProvider>
+                  <Project />
+                </ProjectContextProvider>
+              }
+            />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 }
 
