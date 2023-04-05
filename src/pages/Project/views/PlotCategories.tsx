@@ -157,13 +157,13 @@ const PlotCategories = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-control w-full max-w-xs">
               <label className="label">
-                <span className="label-text">Client</span>
+                <span className="label-text">Category Name</span>
               </label>
               <input
                 {...register("name")}
                 type="text"
                 required
-                placeholder="Enter Client"
+                placeholder="Enter Category Name"
                 className="input input-bordered w-full max-w-xs"
               />
             </div>

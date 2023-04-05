@@ -1,6 +1,9 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const path = require("path");
 
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const isDev = require("electron-is-dev");
 
 // Conditionally include the dev tools installer to load React Dev Tools
@@ -12,7 +15,7 @@ if (isDev) {
   installExtension = devTools.default;
   // eslint-disable-next-line no-unused-vars
   REACT_DEVELOPER_TOOLS = devTools.REACT_DEVELOPER_TOOLS;
-} 
+}
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling
 if (require("electron-squirrel-startup")) {
@@ -25,9 +28,12 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
-    }
+      nodeIntegration: true,
+      preload: path.join(__dirname, "preload.js"),
+    },
   });
+
+  ipcMain.handle("isProd", () => app.isPackaged);
 
   // and load the index.html of the app.
   // win.loadFile("index.html");
@@ -51,8 +57,8 @@ app.whenReady().then(() => {
 
   if (isDev) {
     installExtension(REACT_DEVELOPER_TOOLS)
-      .then(name => console.log(`Added Extension:  ${name}`))
-      .catch(error => console.log(`An error occurred: , ${error}`));
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      .catch((error) => console.log(`An error occurred: , ${error}`));
   }
 });
 

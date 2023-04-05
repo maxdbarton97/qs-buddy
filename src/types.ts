@@ -1,12 +1,18 @@
 import { ReactNode } from "react";
 
-// SCHEMAS
+declare global {
+  interface Window {
+    environment: {
+      isProd: () => boolean;
+    };
+  }
+}
 
 // REACT
 
 export type ProjectState = {
   view: ReactNode;
-  id: String;
+  id: string;
 };
 
 export type ProjectAction =
@@ -65,4 +71,10 @@ export interface IPlotGroupItemSchema {
   quantity: number;
   plotGroupId: string;
   rate?: IRateSchema;
+}
+
+declare global {
+  interface Window {
+    IS_PROD: boolean;
+  }
 }
