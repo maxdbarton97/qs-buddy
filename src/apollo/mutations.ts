@@ -83,17 +83,20 @@ export const EDIT_RATE = gql`
     $name: String!
     $unitOfMeasurement: String!
     $ratePerUnit: Float!
+    $rateTypeId: String!
   ) {
     editRate(
       id: $id
       name: $name
       unitOfMeasurement: $unitOfMeasurement
       ratePerUnit: $ratePerUnit
+      rateTypeId: $rateTypeId
     ) {
       id
       name
       unitOfMeasurement
       ratePerUnit
+      rateTypeId
     }
   }
 `;
@@ -105,6 +108,7 @@ export const DELETE_RATE = gql`
       name
       unitOfMeasurement
       ratePerUnit
+      rateTypeId
     }
   }
 `;

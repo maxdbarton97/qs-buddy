@@ -48,6 +48,7 @@ const Rates = () => {
     formState: { errors },
     setValue,
     reset,
+    getValues,
   } = useForm<RateForm>();
 
   const [createFunction, { error: createError }] = useMutation<RateForm>(
@@ -77,6 +78,7 @@ const Rates = () => {
 
   const onSubmit = async (data: RateForm) => {
     data.ratePerUnit = Number(data.ratePerUnit);
+    console.log(data);
     if (mutationType === "Create") await createFunction({ variables: data });
     if (mutationType === "Edit")
       await editFunction({ variables: { ...data, id: modalData?.id } });
