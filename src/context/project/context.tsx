@@ -6,7 +6,12 @@ export default createContext<{
 }>({
   state: {
     view: createElement("div"),
-    id: "",
+    data: {
+      id: "",
+      client: "",
+      contract: "",
+      address: "",
+    },
   },
   dispatch: () => null,
 });

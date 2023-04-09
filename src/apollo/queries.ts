@@ -13,6 +13,17 @@ export const GET_PROJECTS = gql`
   }
 `;
 
+export const GET_PROJECT = gql`
+  query project($id: String!) {
+    project(id: $id) {
+      id
+      client
+      contract
+      address
+    }
+  }
+`;
+
 export const GET_RATES = gql`
   query {
     paginatedRates {
@@ -106,6 +117,7 @@ export const GET_SUMMARY = gql`
         plotGroups {
           id
           name
+          plots
           plotGroupItems {
             id
             quantity

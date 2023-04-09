@@ -17,7 +17,9 @@ import {
 
 const Summary = () => {
   const {
-    state: { id },
+    state: {
+      data: { id },
+    },
   } = useContext(ProjectContext);
 
   const {

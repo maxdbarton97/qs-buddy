@@ -8,8 +8,8 @@ const appReducer = (state: ProjectState, { type, payload }: ProjectAction) => {
       state.view = payload;
       break;
 
-    case "SET_ID":
-      state.id = payload;
+    case "SET_DATA":
+      state.data = payload;
       break;
 
     default:

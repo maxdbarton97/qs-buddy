@@ -11,7 +11,12 @@ type Props = {
 const ProjectContextProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(projectReducer, {
     view: <Summary />,
-    id: "",
+    data: {
+      id: "",
+      client: "",
+      contract: "",
+      address: "",
+    },
   });
 
   const values = useMemo(() => ({ state, dispatch }), [state]);

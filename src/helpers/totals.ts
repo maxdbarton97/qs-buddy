@@ -11,8 +11,10 @@ export const plotGroupTotal = (plotGroupItems: IPlotGroupItemSchema[]) => {
 };
 
 export const categoryTotal = (plotGroups: IPlotGroupSchema[]) => {
-  return plotGroups.reduce((prev, { plotGroupItems }) => {
-    return prev + plotGroupTotal(plotGroupItems || []);
+  return plotGroups.reduce((prev, { plotGroupItems, plots }) => {
+    return (
+      prev + plotGroupTotal(plotGroupItems || []) * plots.split(",").length
+    );
   }, 0) as number;
 };
 
@@ -43,14 +45,14 @@ export const totalBlocks = (plotGroupItems: IPlotGroupItemSchema[]) => {
 };
 
 export const categoryTotalBricks = (plotGroups: IPlotGroupSchema[]) => {
-  return plotGroups.reduce((prev, { plotGroupItems }) => {
-    return prev + totalBricks(plotGroupItems || []);
+  return plotGroups.reduce((prev, { plotGroupItems, plots }) => {
+    return prev + totalBricks(plotGroupItems || []) * plots.split(",").length;
   }, 0) as number;
 };
 
 export const categoryTotalBlocks = (plotGroups: IPlotGroupSchema[]) => {
-  return plotGroups.reduce((prev, { plotGroupItems }) => {
-    return prev + totalBlocks(plotGroupItems || []);
+  return plotGroups.reduce((prev, { plotGroupItems, plots }) => {
+    return prev + totalBlocks(plotGroupItems || []) * plots.split(",").length;
   }, 0) as number;
 };
 

@@ -6,6 +6,10 @@ import reportWebVitals from "./reportWebVitals";
 import { getApolloClient } from "./apollo";
 import { ApolloProvider } from "@apollo/client";
 
+// set theme from local storage;
+const theme = localStorage.getItem("theme") || "dark";
+document.querySelector("html")?.setAttribute("data-theme", theme);
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

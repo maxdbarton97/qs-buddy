@@ -21,7 +21,9 @@ export type PlotGroupForm = {
 const PlotGroups = () => {
   const {
     dispatch,
-    state: { id: projectId },
+    state: {
+      data: { id: projectId },
+    },
   } = useContext(ProjectContext);
 
   const {

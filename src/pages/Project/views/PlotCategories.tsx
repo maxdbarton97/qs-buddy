@@ -17,7 +17,9 @@ export type PlotCategoryForm = {
 
 const PlotCategories = () => {
   const {
-    state: { id: projectId },
+    state: {
+      data: { id: projectId },
+    },
   } = useContext(ProjectContext);
 
   const {

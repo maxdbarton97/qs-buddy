@@ -12,12 +12,12 @@ declare global {
 
 export type ProjectState = {
   view: ReactNode;
-  id: string;
+  data: IProjectSchema;
 };
 
 export type ProjectAction =
   | { type: "SET_VIEW"; payload: ReactNode }
-  | { type: "SET_ID"; payload: string };
+  | { type: "SET_DATA"; payload: IProjectSchema };
 
 // API
 
