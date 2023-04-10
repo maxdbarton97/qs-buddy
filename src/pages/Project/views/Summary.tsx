@@ -125,17 +125,17 @@ const Summary = () => {
         <tbody>
           <tr>
             <td>-</td>
-            <td className="bg-neutral-600 text-neutral-content">
+            <td className="bg-neutral text-neutral-content">
               £{currency.format(total)}
             </td>
-            <td className="bg-neutral-600 text-neutral-content">
+            <td className="bg-neutral text-neutral-content">
               £{currency.format(total * 0.05)}
             </td>
 
-            <td className="bg-neutral-600 text-neutral-content">
+            <td className="bg-neutral text-neutral-content">
               {grandTotalBricksValue}
             </td>
-            <td className="bg-neutral-600 text-neutral-content">
+            <td className="bg-neutral text-neutral-content">
               {grandTotalBlocksValue}
             </td>
           </tr>

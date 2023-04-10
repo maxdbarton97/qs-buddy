@@ -2,11 +2,19 @@ import { useMutation, useQuery } from "@apollo/client";
 import { FC, useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { CREATE_PLOT_GROUP_ITEM, DELETE_PLOT_GROUP_ITEM, EDIT_PLOT_GROUP_ITEM } from "../../../apollo/mutations";
+import {
+  CREATE_PLOT_GROUP_ITEM,
+  DELETE_PLOT_GROUP_ITEM,
+  EDIT_PLOT_GROUP_ITEM,
+} from "../../../apollo/mutations";
 import { GET_PLOT_GROUP, GET_RATES } from "../../../apollo/queries";
 import ProjectContext from "../../../context/project";
 import { currency, plotGroupTotal } from "../../../helpers";
-import { IPlotGroupItemSchema, IPlotGroupSchema, IRateSchema } from "../../../types";
+import {
+  IPlotGroupItemSchema,
+  IPlotGroupSchema,
+  IRateSchema,
+} from "../../../types";
 import PlotGroups from "./PlotGroups";
 
 type PlotGroupProps = {
@@ -163,7 +171,7 @@ const PlotGroup: FC<PlotGroupProps> = ({ id }) => {
                   <th className="flex gap-2 items-center justify-end">
                     <label
                       className="btn btn-outline btn-xs"
-                      htmlFor="plot-group-item-delete-modal"
+                      htmlFor="plot-group-item-modal"
                       onClick={() =>
                         onEditOpen({
                           id,

@@ -64,6 +64,6 @@ export const grandTotalBricks = (categories: IPlotCategorySchema[]) => {
 
 export const grandTotalBlocks = (categories: IPlotCategorySchema[]) => {
   return categories.reduce((prev, { plotGroups }) => {
-    return prev + categoryTotalBricks(plotGroups || []);
+    return prev + categoryTotalBlocks(plotGroups || []);
   }, 0) as number;
 };
