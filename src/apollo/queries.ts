@@ -20,6 +20,7 @@ export const GET_PROJECT = gql`
       client
       contract
       address
+      sundriesPercentage
     }
   }
 `;

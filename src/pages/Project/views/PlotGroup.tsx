@@ -29,7 +29,12 @@ export type PlotGroupItemForm = {
 // TODO: CRUD for plot group items - summary and project report afterwards!
 
 const PlotGroup: FC<PlotGroupProps> = ({ id }) => {
-  const { dispatch } = useContext(ProjectContext);
+  const {
+    dispatch,
+    state: {
+      data: { sundriesPercentage },
+    },
+  } = useContext(ProjectContext);
   const [modalData, setModalData] =
     useState<Omit<IPlotGroupItemSchema, "rateId">>();
   const [mutationType, setMutationType] = useState<"Create" | "Edit">("Create");
@@ -38,7 +43,6 @@ const PlotGroup: FC<PlotGroupProps> = ({ id }) => {
 
   useEffect(() => {
     if (!id) dispatch({ type: "SET_VIEW", payload: <PlotGroups /> });
-    console.log(id);
   }, [dispatch, id]);
 
   const {
@@ -215,11 +219,11 @@ const PlotGroup: FC<PlotGroupProps> = ({ id }) => {
             <tr>
               <td />
               <td className="bg-secondary text-secondary-content">
-                Sundies (5.00%)
+                Sundries ({sundriesPercentage}%)
               </td>
               {/* TODO: Make sundries a varaible in settings (saved in DB) */}
               <td className="bg-secondary text-secondary-content">
-                £{currency.format(total * 0.05)}
+                £{currency.format(total * (sundriesPercentage / 100))}
               </td>
               <td />
             </tr>

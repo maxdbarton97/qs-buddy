@@ -25,17 +25,20 @@ export const EDIT_PROJECT = gql`
     $client: String!
     $contract: String!
     $address: String!
+    $sundriesPercentage: Float
   ) {
     editProject(
       id: $id
       client: $client
       contract: $contract
       address: $address
+      sundriesPercentage: $sundriesPercentage
     ) {
       id
       client
       contract
       address
+      sundriesPercentage
     }
   }
 `;

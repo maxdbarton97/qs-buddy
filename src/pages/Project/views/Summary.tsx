@@ -18,7 +18,7 @@ import {
 const Summary = () => {
   const {
     state: {
-      data: { id },
+      data: { id, sundriesPercentage },
     },
   } = useContext(ProjectContext);
 
@@ -84,7 +84,12 @@ const Summary = () => {
                           <tr key={pgId}>
                             <td width={400}>{plotGroupName}</td>
                             <td>£{currency.format(total)}</td>
-                            <td>£{currency.format(total * 0.05)}</td>
+                            <td>
+                              £
+                              {currency.format(
+                                total * (sundriesPercentage / 100)
+                              )}
+                            </td>
                             <td>{totalBricksValue}</td>
                             <td>{totalBlocksValue}</td>
                           </tr>
@@ -98,7 +103,10 @@ const Summary = () => {
                         £{currency.format(categoryTotalValue)}
                       </td>
                       <td className="">
-                        £{currency.format(categoryTotalValue * 0.05)}
+                        £
+                        {currency.format(
+                          categoryTotalValue * (sundriesPercentage / 100)
+                        )}
                       </td>
 
                       <td>{categoryTotalBricksValue}</td>
@@ -129,7 +137,7 @@ const Summary = () => {
               £{currency.format(total)}
             </td>
             <td className="bg-neutral text-neutral-content">
-              £{currency.format(total * 0.05)}
+              £{currency.format(total * (sundriesPercentage / 100))}
             </td>
 
             <td className="bg-neutral text-neutral-content">

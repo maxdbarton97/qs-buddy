@@ -33,7 +33,10 @@ const sortByPlot = (_a: any, _b: any) => {
   return Number(a) - Number(b);
 };
 
-const exportSummary = async (plotCategoryData: IPlotCategorySchema[]) => {
+const exportSummary = async (
+  plotCategoryData: IPlotCategorySchema[],
+  sundriesPercentage: number
+) => {
   const fileType =
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset-UTF-8";
   const fileExtention = ".xlsx";
@@ -54,7 +57,7 @@ const exportSummary = async (plotCategoryData: IPlotCategorySchema[]) => {
           // Space between cells
           "": "",
           LABOUR: `£${currency.format(total)}`,
-          SUNDRIES: `£${currency.format(total * 0.05)}`,
+          SUNDRIES: `£${currency.format(total * (sundriesPercentage / 100))}`,
           " ": "",
           BRICKS: totalBricks(pg.plotGroupItems || []),
           BLOCKS: totalBlocks(pg.plotGroupItems || []),
@@ -85,7 +88,7 @@ const exportSummary = async (plotCategoryData: IPlotCategorySchema[]) => {
       PLOT: "TOTAL",
       LABOUR: `£${currency.format(grandTotal(plotCategoryData || []))}`,
       SUNDRIES: `£${currency.format(
-        grandTotal(plotCategoryData || []) * 0.05
+        grandTotal(plotCategoryData || []) * (sundriesPercentage / 100)
       )}`,
       BRICKS: grandTotalBricks(plotCategoryData || []),
       BLOCKS: grandTotalBlocks(plotCategoryData || []),

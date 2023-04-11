@@ -32,6 +32,7 @@ export interface IProjectSchema {
   client: string;
   contract: string;
   address: string;
+  sundriesPercentage: number;
 }
 
 export interface IPlotCategorySchema {

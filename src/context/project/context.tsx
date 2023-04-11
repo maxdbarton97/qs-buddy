@@ -11,6 +11,7 @@ export default createContext<{
       client: "",
       contract: "",
       address: "",
+      sundriesPercentage: 5,
     },
   },
   dispatch: () => null,

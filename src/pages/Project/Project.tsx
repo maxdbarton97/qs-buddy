@@ -1,6 +1,6 @@
 import { ReactNode, useState, useContext, useEffect } from "react";
 
-import { PlotGroups, Summary, PlotCategories } from "./views";
+import { PlotGroups, Summary, PlotCategories, Settings } from "./views";
 import ProjectContext from "../../context/project";
 import { useParams } from "react-router-dom";
 import { IPlotCategorySchema, IProjectSchema } from "../../types";
@@ -11,7 +11,13 @@ import { exportSummary } from "../../helpers";
 export const Project = () => {
   const [activeTab, setActiveTab] = useState("Summary");
   const [view, setView] = useState<ReactNode>();
-  const { state, dispatch } = useContext(ProjectContext);
+  const {
+    state: {
+      view: stateView,
+      data: { sundriesPercentage },
+    },
+    dispatch,
+  } = useContext(ProjectContext);
   const { id } = useParams<{ id: string }>();
 
   if (!id) throw new Error("Project ID not found.");
@@ -39,8 +45,8 @@ export const Project = () => {
   }, [dispatch, data]);
 
   useEffect(() => {
-    setView(state.view);
-  }, [state.view]);
+    setView(stateView);
+  }, [stateView]);
 
   const onTabSelect = (tab: string) => {
     setActiveTab(tab);
@@ -54,6 +60,10 @@ export const Project = () => {
         setView(<PlotCategories />);
         break;
 
+      case "Settings":
+        setView(<Settings />);
+        break;
+
       default:
         setView(<Summary />);
     }
@@ -63,7 +73,10 @@ export const Project = () => {
 
   const onExport = async () => {
     const summary = await getSummaryData();
-    exportSummary(summary.data?.paginatedPlotCategories.items || []);
+    exportSummary(
+      summary.data?.paginatedPlotCategories.items || [],
+      sundriesPercentage
+    );
   };
 
   return (
@@ -95,6 +108,15 @@ export const Project = () => {
           }`}
         >
           Plot Categories
+        </button>
+
+        <button
+          onClick={() => onTabSelect("Settings")}
+          className={`tab tab-lg tab-bordered ${
+            activeTab === "Settings" ? "tab-active" : null
+          }`}
+        >
+          Settings
         </button>
 
         {activeTab === "Summary" ? (

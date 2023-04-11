@@ -29,7 +29,8 @@ const Projects = () => {
     };
   }>(GET_PROJECTS);
 
-  const [modalData, setModalData] = useState<IProjectSchema>();
+  const [modalData, setModalData] =
+    useState<Omit<IProjectSchema, "sundriesPercentage">>();
   const [mutationType, setMutationType] = useState<"Create" | "Edit">("Create");
   const projectModalRef = useRef<HTMLInputElement | null>(null);
 
@@ -78,7 +79,7 @@ const Projects = () => {
     reset();
   };
 
-  const onEditOpen = (project: IProjectSchema) => {
+  const onEditOpen = (project: Omit<IProjectSchema, "sundriesPercentage">) => {
     setMutationType("Edit");
     setModalData(project);
     const { client, contract, address } = project;

@@ -16,6 +16,7 @@ const ProjectContextProvider: FC<Props> = ({ children }) => {
       client: "",
       contract: "",
       address: "",
+      sundriesPercentage: 5,
     },
   });
 
