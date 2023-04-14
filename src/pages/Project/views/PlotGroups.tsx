@@ -62,7 +62,6 @@ const PlotGroups = () => {
     formState: { errors },
     setValue,
     reset,
-    watch,
   } = useForm<PlotGroupForm>();
 
   const [createFunction, { error: createError }] = useMutation<PlotGroupForm>(

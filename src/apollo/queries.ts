@@ -32,7 +32,6 @@ export const GET_RATES = gql`
         id
         name
         unitOfMeasurement
-        ratePerUnit
         rateType {
           id
           name
@@ -97,9 +96,27 @@ export const GET_PLOT_GROUP = gql`
         rate {
           id
           name
-          ratePerUnit
+          costPerUnit
         }
         quantity
+      }
+    }
+  }
+`;
+
+export const GET_PROJECT_RATES = gql`
+  query projectRates($projectId: String!) {
+    paginatedProjectRates(projectId: $projectId) {
+      items {
+        id
+        projectRateId
+        name
+        costPerUnit
+        unitOfMeasurement
+        rateType {
+          id
+          name
+        }
       }
     }
   }
@@ -124,7 +141,7 @@ export const GET_SUMMARY = gql`
             quantity
             rate {
               id
-              ratePerUnit
+              costPerUnit
               rateType {
                 id
                 name

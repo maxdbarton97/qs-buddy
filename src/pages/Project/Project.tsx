@@ -1,12 +1,18 @@
-import { ReactNode, useState, useContext, useEffect } from "react";
-
-import { PlotGroups, Summary, PlotCategories, Settings } from "./views";
-import ProjectContext from "../../context/project";
-import { useParams } from "react-router-dom";
-import { IPlotCategorySchema, IProjectSchema } from "../../types";
 import { useLazyQuery, useQuery } from "@apollo/client";
+import { ReactNode, useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import { GET_PROJECT, GET_SUMMARY } from "../../apollo/queries";
+import ProjectContext from "../../context/project";
 import { exportSummary } from "../../helpers";
+import { IPlotCategorySchema, IProjectSchema } from "../../types";
+import {
+  LabourCosts,
+  PlotCategories,
+  PlotGroups,
+  Settings,
+  Summary,
+} from "./views";
 
 export const Project = () => {
   const [activeTab, setActiveTab] = useState("Summary");
@@ -60,6 +66,10 @@ export const Project = () => {
         setView(<PlotCategories />);
         break;
 
+      case "Project Rates":
+        setView(<LabourCosts />);
+        break;
+
       case "Settings":
         setView(<Settings />);
         break;
@@ -82,10 +92,10 @@ export const Project = () => {
   return (
     <div className="page-container">
       <div className="tabs justify-center mt-2">
-        <h2 className="mr-8 pb-1">{data?.project.client} </h2>
+        <h2 className="mr-8">{data?.project.client} </h2>
         <button
           onClick={() => onTabSelect("Summary")}
-          className={`tab tab-bordered tab-lg ${
+          className={`tab tab-bordered  ${
             activeTab === "Summary" ? "tab-active" : null
           }`}
         >
@@ -94,7 +104,7 @@ export const Project = () => {
 
         <button
           onClick={() => onTabSelect("Plot Groups")}
-          className={`tab tab-lg tab-bordered ${
+          className={`tab tab-bordered ${
             activeTab === "Plot Groups" ? "tab-active" : null
           }`}
         >
@@ -103,7 +113,7 @@ export const Project = () => {
 
         <button
           onClick={() => onTabSelect("Plot Categories")}
-          className={`tab tab-lg tab-bordered ${
+          className={`tab tab-bordered ${
             activeTab === "Plot Categories" ? "tab-active" : null
           }`}
         >
@@ -111,8 +121,17 @@ export const Project = () => {
         </button>
 
         <button
+          onClick={() => onTabSelect("Project Rates")}
+          className={`tab tab-bordered ${
+            activeTab === "Project Rates" ? "tab-active" : null
+          }`}
+        >
+          Project Rates
+        </button>
+
+        <button
           onClick={() => onTabSelect("Settings")}
-          className={`tab tab-lg tab-bordered ${
+          className={`tab tab-bordered ${
             activeTab === "Settings" ? "tab-active" : null
           }`}
         >

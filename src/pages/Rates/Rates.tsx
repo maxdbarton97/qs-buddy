@@ -9,7 +9,6 @@ import { IRateSchema, IRateTypeSchema } from "../../types";
 export type RateForm = {
   name: string;
   unitOfMeasurement: string;
-  ratePerUnit: number;
   rateTypeId: string;
 };
 
@@ -48,7 +47,6 @@ const Rates = () => {
     formState: { errors },
     setValue,
     reset,
-    getValues,
   } = useForm<RateForm>();
 
   const [createFunction, { error: createError }] = useMutation<RateForm>(
@@ -77,8 +75,6 @@ const Rates = () => {
   if (rateTypeQueryError) throw rateTypeQueryError;
 
   const onSubmit = async (data: RateForm) => {
-    data.ratePerUnit = Number(data.ratePerUnit);
-    console.log(data);
     if (mutationType === "Create") await createFunction({ variables: data });
     if (mutationType === "Edit")
       await editFunction({ variables: { ...data, id: modalData?.id } });
@@ -94,10 +90,9 @@ const Rates = () => {
   const onEditOpen = (project: Omit<IRateSchema, "rateTypeId">) => {
     setMutationType("Edit");
     setModalData(project);
-    const { name, unitOfMeasurement, ratePerUnit, rateType } = project;
+    const { name, unitOfMeasurement, rateType } = project;
     setValue("name", name);
     setValue("unitOfMeasurement", unitOfMeasurement);
-    setValue("ratePerUnit", ratePerUnit);
     setValue("rateTypeId", rateType?.id as string);
   };
 
@@ -120,7 +115,6 @@ const Rates = () => {
             <tr>
               <th>Name</th>
               <th>Unit of Measurement</th>
-              <th>Rate Per Unit</th>
               <th>Type</th>
               <th />
             </tr>
@@ -128,11 +122,10 @@ const Rates = () => {
           <tbody>
             {/* row 1 */}
             {data?.paginatedRates.items?.map(
-              ({ id, name, unitOfMeasurement, ratePerUnit, rateType }) => (
+              ({ id, name, unitOfMeasurement, rateType }) => (
                 <tr key={id}>
                   <td>{name}</td>
                   <td>{unitOfMeasurement}</td>
-                  <td>{ratePerUnit}</td>
                   <td>{rateType?.name}</td>
                   <td className="flex gap-2 items-center justify-end">
                     <label
@@ -143,7 +136,6 @@ const Rates = () => {
                           id,
                           name,
                           unitOfMeasurement,
-                          ratePerUnit,
                           rateType,
                         })
                       }
@@ -159,7 +151,6 @@ const Rates = () => {
                           id,
                           name,
                           unitOfMeasurement,
-                          ratePerUnit,
                           rateType,
                         })
                       }
@@ -214,24 +205,6 @@ const Rates = () => {
               />
             </div>
 
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">Rate Per Unit</span>
-              </label>
-              <input
-                {...register("ratePerUnit", {
-                  pattern: {
-                    value: /^[0-9]+(\.[0-9]{2})$/,
-                    message:
-                      "Please enter a rate per unit to 2 decimal places.",
-                  },
-                })}
-                required
-                type="text"
-                placeholder="Enter Rate Per Unit"
-                className="input input-bordered w-full max-w-xs"
-              />
-            </div>
             <div className="flex gap-4 mt-4">
               {rateTypeData?.paginatedRateTypes.items.map(({ id, name }) => (
                 <div className="form-control" key={id}>
@@ -298,13 +271,10 @@ const Rates = () => {
           <p>Are you sure you would like to delete the following project?</p>
           <br />
           <p>
-            Client: <b>{modalData?.name}</b>
+            Name: <b>{modalData?.name}</b>
           </p>
           <p>
-            Contract: <b>{modalData?.unitOfMeasurement}</b>
-          </p>
-          <p>
-            Address: <b>{modalData?.ratePerUnit}</b>
+            Unit of Measurement: <b>{modalData?.unitOfMeasurement}</b>
           </p>
 
           {deleteError ? (

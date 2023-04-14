@@ -6,7 +6,7 @@ import {
 
 export const plotGroupTotal = (plotGroupItems: IPlotGroupItemSchema[]) => {
   return plotGroupItems.reduce((prev, { quantity, rate }) => {
-    return prev + (rate?.ratePerUnit as number) * quantity;
+    return prev + (rate?.costPerUnit as number) * quantity;
   }, 0) as number;
 };
 

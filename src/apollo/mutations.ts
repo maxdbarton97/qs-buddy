@@ -62,19 +62,16 @@ export const CREATE_RATE = gql`
   mutation createRate(
     $name: String!
     $unitOfMeasurement: String!
-    $ratePerUnit: Float!
     $rateTypeId: String!
   ) {
     createRate(
       name: $name
       unitOfMeasurement: $unitOfMeasurement
-      ratePerUnit: $ratePerUnit
       rateTypeId: $rateTypeId
     ) {
       id
       name
       unitOfMeasurement
-      ratePerUnit
       rateTypeId
     }
   }
@@ -85,20 +82,17 @@ export const EDIT_RATE = gql`
     $id: String!
     $name: String!
     $unitOfMeasurement: String!
-    $ratePerUnit: Float!
     $rateTypeId: String!
   ) {
     editRate(
       id: $id
       name: $name
       unitOfMeasurement: $unitOfMeasurement
-      ratePerUnit: $ratePerUnit
       rateTypeId: $rateTypeId
     ) {
       id
       name
       unitOfMeasurement
-      ratePerUnit
       rateTypeId
     }
   }
@@ -110,8 +104,37 @@ export const DELETE_RATE = gql`
       id
       name
       unitOfMeasurement
-      ratePerUnit
       rateTypeId
+    }
+  }
+`;
+
+// ===
+// Project Rates
+// ===
+
+export const CREATE_PROJECT_RATE = gql`
+  mutation createProjectRate(
+    $projectId: String!
+    $rateId: String!
+    $costPerUnit: Float!
+  ) {
+    createProjectRate(
+      projectId: $projectId
+      rateId: $rateId
+      costPerUnit: $costPerUnit
+    ) {
+      id
+      costPerUnit
+    }
+  }
+`;
+
+export const EDIT_PROJECT_RATE = gql`
+  mutation editProjectRate($id: String!, $costPerUnit: Float!) {
+    editProjectRate(id: $id, costPerUnit: $costPerUnit) {
+      id
+      costPerUnit
     }
   }
 `;

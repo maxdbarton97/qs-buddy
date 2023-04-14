@@ -61,9 +61,14 @@ export interface IRateSchema {
   id: string;
   name: string;
   unitOfMeasurement: string;
-  ratePerUnit: number;
   rateTypeId: string;
   rateType?: IRateTypeSchema;
+}
+
+export interface IProjectRateSchema extends IRateSchema {
+  id: string;
+  projectRateId?: string;
+  costPerUnit: number;
 }
 
 export interface IPlotGroupItemSchema {
@@ -71,7 +76,7 @@ export interface IPlotGroupItemSchema {
   rateId: string;
   quantity: number;
   plotGroupId: string;
-  rate?: IRateSchema;
+  rate?: IProjectRateSchema;
 }
 
 declare global {

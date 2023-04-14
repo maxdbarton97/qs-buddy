@@ -170,7 +170,7 @@ const PlotGroup: FC<PlotGroupProps> = ({ id }) => {
                   <td>{rate?.name}</td>
                   <td>{quantity}</td>
                   <td>
-                    £{currency.format((rate?.ratePerUnit as number) * quantity)}
+                    £{currency.format((rate?.costPerUnit as number) * quantity)}
                   </td>
                   <th className="flex gap-2 items-center justify-end">
                     <label
