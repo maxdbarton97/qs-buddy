@@ -107,7 +107,7 @@ const PlotCategories = () => {
         </label>
       </div>
       <div className="overflow-x-auto mt-2">
-        <table className="table w-full">
+        <table className="table table-compact w-full">
           {/* head */}
           <thead>
             <tr>

@@ -1,15 +1,16 @@
-import { useContext } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_PLOT_CATEGORIES, GET_PLOT_GROUPS } from "../../../apollo/queries";
-import { IPlotCategorySchema, IPlotGroupSchema } from "../../../types";
+import { useContext } from "react";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+
 import {
   CREATE_PLOT_GROUP,
   DELETE_PLOT_GROUP,
   EDIT_PLOT_GROUP,
 } from "../../../apollo/mutations";
-import { useForm } from "react-hook-form";
-import { useRef, useState } from "react";
+import { GET_PLOT_CATEGORIES, GET_PLOT_GROUPS } from "../../../apollo/queries";
 import ProjectContext from "../../../context/project";
+import { IPlotCategorySchema, IPlotGroupSchema } from "../../../types";
 import PlotGroup from "./PlotGroup";
 
 export type PlotGroupForm = {
@@ -130,7 +131,7 @@ const PlotGroups = () => {
         </label>
       </div>
       <div className="overflow-x-auto mt-2">
-        <table className="table w-full">
+        <table className="table table-compact w-full">
           {/* head */}
           <thead>
             <tr>

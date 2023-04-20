@@ -9,6 +9,7 @@ import {
   categoryTotalBricks,
   currency,
   grandTotal,
+  grandTotalBlocks,
   grandTotalBricks,
   plotGroupTotal,
   totalBlocks,
@@ -41,7 +42,7 @@ const Summary = () => {
   const grandTotalBricksValue = grandTotalBricks(
     data?.paginatedPlotCategories.items || []
   );
-  const grandTotalBlocksValue = grandTotalBricks(
+  const grandTotalBlocksValue = grandTotalBlocks(
     data?.paginatedPlotCategories.items || []
   );
 
@@ -58,7 +59,7 @@ const Summary = () => {
             return (
               <Fragment key={id}>
                 <h3>{name}</h3>
-                <table className="table w-full mt-3 mb-4 table-fixed">
+                <table className="table table-compact w-full mt-3 mb-4 table-fixed">
                   {/* head */}
                   <thead>
                     <tr>
@@ -119,14 +120,13 @@ const Summary = () => {
           }
         )}
       </div>
-      <table className="table w-full mt-4 table-fixed">
+      <table className="table table-compact w-full mt-4 table-fixed">
         <thead>
           <tr>
             <th className="w-1/3">Grand Total</th>
             <th>Labour</th>
             <th>Sundries</th>
             <th>Bricks</th>
-
             <th>Blocks</th>
           </tr>
         </thead>
