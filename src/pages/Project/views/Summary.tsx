@@ -72,8 +72,16 @@ const Summary = () => {
                   </thead>
                   <tbody>
                     {plotGroups?.map(
-                      ({ id: pgId, name: plotGroupName, plotGroupItems }) => {
-                        const total = plotGroupTotal(plotGroupItems || []);
+                      ({
+                        id: pgId,
+                        name: plotGroupName,
+                        plotGroupItems,
+                        plots,
+                      }) => {
+                        const total = plotGroupTotal(
+                          plotGroupItems || [],
+                          plots.split(",").length
+                        );
                         const totalBricksValue = totalBricks(
                           plotGroupItems || []
                         );

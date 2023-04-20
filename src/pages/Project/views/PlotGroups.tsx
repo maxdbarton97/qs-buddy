@@ -1,22 +1,22 @@
-import { useMutation, useQuery } from "@apollo/client";
 import { useContext } from "react";
-import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_PLOT_CATEGORIES, GET_PLOT_GROUPS } from "../../../apollo/queries";
+import { IPlotCategorySchema, IPlotGroupSchema } from "../../../types";
 import {
   CREATE_PLOT_GROUP,
   DELETE_PLOT_GROUP,
   EDIT_PLOT_GROUP,
 } from "../../../apollo/mutations";
-import { GET_PLOT_CATEGORIES, GET_PLOT_GROUPS } from "../../../apollo/queries";
+import { useForm } from "react-hook-form";
+import { useRef, useState } from "react";
 import ProjectContext from "../../../context/project";
-import { IPlotCategorySchema, IPlotGroupSchema } from "../../../types";
 import PlotGroup from "./PlotGroup";
 
 export type PlotGroupForm = {
   name: string;
   plotCategoryId: string;
   plots: string;
+  copyFromPlotGroupId?: string;
 };
 
 const PlotGroups = () => {
@@ -56,6 +56,7 @@ const PlotGroups = () => {
   const [mutationType, setMutationType] = useState<"Create" | "Edit">("Create");
   const plotGroupModalRef = useRef<HTMLInputElement | null>(null);
   const plotGroupDeleteModalRef = useRef<HTMLInputElement | null>(null);
+  const [copyRates, setCopyRates] = useState(false);
 
   const {
     handleSubmit,
@@ -91,8 +92,9 @@ const PlotGroups = () => {
     throw queryError || categoriesQueryError;
 
   const onSubmit = async (data: PlotGroupForm) => {
-    if (mutationType === "Create")
-      await createFunction({ variables: { ...data, projectId } });
+    if (mutationType === "Create") console.log(data);
+    if (!copyRates) data.copyFromPlotGroupId = undefined;
+    await createFunction({ variables: { ...data, projectId } });
     if (mutationType === "Edit")
       await editFunction({ variables: { ...data, id: modalData?.id } });
 
@@ -267,6 +269,40 @@ const PlotGroups = () => {
                 Enter plots seperated by commas e.g 1, 2, 3...
               </span>
             </div>
+
+            <div className="form-control mt-2">
+              <label className="label cursor-pointer justify-start gap-2">
+                <span className="label-text mb-1">Copy Rates</span>
+                <input
+                  type="checkbox"
+                  className="toggle"
+                  checked={copyRates}
+                  onChange={(e) => setCopyRates(e.target.checked)}
+                />
+              </label>
+            </div>
+
+            {copyRates ? (
+              <div className="form-control w-full max-w-xs">
+                <label className="label">
+                  <span className="label-text">Copy From</span>
+                </label>
+                <select
+                  {...register("copyFromPlotGroupId")}
+                  defaultValue=""
+                  required
+                  className="select select-bordered w-full max-w-xs"
+                >
+                  <option disabled>Select Plot Category</option>
+
+                  {data?.paginatedPlotGroups.items.map(({ id, name }) => (
+                    <option key={id} value={id}>
+                      {name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ) : null}
 
             {errors ? (
               <span className="text-red-500 text-center">

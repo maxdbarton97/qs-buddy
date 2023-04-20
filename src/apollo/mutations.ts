@@ -180,12 +180,14 @@ export const CREATE_PLOT_GROUP = gql`
     $projectId: String!
     $plotCategoryId: String!
     $plots: String!
+    $copyFromPlotGroupId: String
   ) {
     createPlotGroup(
       name: $name
       projectId: $projectId
       plotCategoryId: $plotCategoryId
       plots: $plots
+      copyFromPlotGroupId: $copyFromPlotGroupId
     ) {
       id
       name

@@ -4,16 +4,28 @@ import {
   IPlotGroupSchema,
 } from "../types";
 
-export const plotGroupTotal = (plotGroupItems: IPlotGroupItemSchema[]) => {
-  return plotGroupItems.reduce((prev, { quantity, rate }) => {
+export const plotGroupItemTotal = (plotGroupItems: IPlotGroupItemSchema[]) => {
+  const total = plotGroupItems.reduce((prev, { quantity, rate }) => {
     return prev + (rate?.costPerUnit as number) * quantity;
   }, 0) as number;
+
+  return total;
+};
+
+export const plotGroupTotal = (
+  plotGroupItems: IPlotGroupItemSchema[],
+  numberOfPlots: number
+) => {
+  const plotGroupItemTotalVal = plotGroupItemTotal(plotGroupItems);
+  return plotGroupItemTotalVal * numberOfPlots;
 };
 
 export const categoryTotal = (plotGroups: IPlotGroupSchema[]) => {
   return plotGroups.reduce((prev, { plotGroupItems, plots }) => {
     return (
-      prev + plotGroupTotal(plotGroupItems || []) * plots.split(",").length
+      prev +
+      plotGroupTotal(plotGroupItems || [], plots.split(",").length) *
+        plots.split(",").length
     );
   }, 0) as number;
 };

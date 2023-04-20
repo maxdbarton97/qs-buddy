@@ -5,7 +5,7 @@ import {
   grandTotal,
   grandTotalBlocks,
   grandTotalBricks,
-  plotGroupTotal,
+  plotGroupItemTotal,
   totalBlocks,
   totalBricks,
 } from "./totals";
@@ -49,7 +49,7 @@ const exportSummary = async (
     json[pc.name] = [];
 
     pc.plotGroups?.forEach((pg) => {
-      const total = plotGroupTotal(pg?.plotGroupItems || []);
+      const total = plotGroupItemTotal(pg?.plotGroupItems || []);
       pg.plots.split(",").forEach((p) => {
         // push to array an remove spaces to help with sorting
         json[pc.name].push({

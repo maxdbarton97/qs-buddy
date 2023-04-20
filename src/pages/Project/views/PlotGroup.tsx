@@ -9,7 +9,7 @@ import {
 } from "../../../apollo/mutations";
 import { GET_PLOT_GROUP, GET_RATES } from "../../../apollo/queries";
 import ProjectContext from "../../../context/project";
-import { currency, plotGroupTotal } from "../../../helpers";
+import { currency, plotGroupItemTotal } from "../../../helpers";
 import {
   IPlotGroupItemSchema,
   IPlotGroupSchema,
@@ -119,7 +119,7 @@ const PlotGroup: FC<PlotGroupProps> = ({ id }) => {
     plotGroupItemModalRef.current?.click();
   };
 
-  const total = plotGroupTotal(data?.plotGroup?.plotGroupItems || []);
+  const total = plotGroupItemTotal(data?.plotGroup?.plotGroupItems || []);
   const onDelete = async () => {
     await deleteFunction({ variables: { id: modalData?.id } });
     plotGroupItemDeleteModalRef.current?.click();
