@@ -33,7 +33,10 @@ const Summary = () => {
       total: number;
       currentPage: number;
     };
-  }>(GET_SUMMARY, { variables: { projectId: id } });
+  }>(GET_SUMMARY, {
+    variables: { projectId: id },
+    fetchPolicy: "cache-and-network",
+  });
 
   if (loading) return null;
   if (queryError) throw queryError;
