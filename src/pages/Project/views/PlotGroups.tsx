@@ -1,15 +1,12 @@
-import { useContext } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_PLOT_CATEGORIES, GET_PLOT_GROUPS } from "../../../apollo/queries";
-import { IPlotCategorySchema, IPlotGroupSchema } from "../../../types";
-import {
-  CREATE_PLOT_GROUP,
-  DELETE_PLOT_GROUP,
-  EDIT_PLOT_GROUP,
-} from "../../../apollo/mutations";
-import { useForm } from "react-hook-form";
+import { useContext } from "react";
 import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+
+import { CREATE_PLOT_GROUP, DELETE_PLOT_GROUP, EDIT_PLOT_GROUP } from "../../../apollo/mutations";
+import { GET_PLOT_CATEGORIES, GET_PLOT_GROUPS } from "../../../apollo/queries";
 import ProjectContext from "../../../context/project";
+import { IPlotCategorySchema, IPlotGroupSchema } from "../../../types";
 import PlotGroup from "./PlotGroup";
 
 export type PlotGroupForm = {
@@ -92,11 +89,12 @@ const PlotGroups = () => {
     throw queryError || categoriesQueryError;
 
   const onSubmit = async (data: PlotGroupForm) => {
-    if (mutationType === "Create") console.log(data);
     if (!copyRates) data.copyFromPlotGroupId = undefined;
-    await createFunction({ variables: { ...data, projectId } });
-    if (mutationType === "Edit")
+    if (mutationType === "Create") {
+      await createFunction({ variables: { ...data, projectId } });
+    } if (mutationType === "Edit") {
       await editFunction({ variables: { ...data, id: modalData?.id } });
+    }
 
     plotGroupModalRef.current?.click();
   };
