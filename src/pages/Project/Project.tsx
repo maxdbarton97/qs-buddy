@@ -6,13 +6,7 @@ import { GET_PROJECT, GET_SUMMARY } from "../../apollo/queries";
 import ProjectContext from "../../context/project";
 import { exportSummary } from "../../helpers";
 import { IPlotCategorySchema, IProjectSchema } from "../../types";
-import {
-  LabourCosts,
-  PlotCategories,
-  PlotGroups,
-  Settings,
-  Summary,
-} from "./views";
+import { LabourCosts, PlotCategories, PlotGroups, Settings, Summary } from "./views";
 
 export const Project = () => {
   const [activeTab, setActiveTab] = useState("Summary");
@@ -20,7 +14,7 @@ export const Project = () => {
   const {
     state: {
       view: stateView,
-      data: { sundriesPercentage },
+      data: { sundriesPercentage, contract },
     },
     dispatch,
   } = useContext(ProjectContext);
@@ -84,6 +78,7 @@ export const Project = () => {
   const onExport = async () => {
     const summary = await getSummaryData();
     exportSummary(
+      contract,
       summary.data?.paginatedPlotCategories.items || [],
       sundriesPercentage
     );

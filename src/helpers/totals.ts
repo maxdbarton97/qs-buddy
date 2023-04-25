@@ -1,8 +1,4 @@
-import {
-  IPlotCategorySchema,
-  IPlotGroupItemSchema,
-  IPlotGroupSchema,
-} from "../types";
+import { IPlotCategorySchema, IPlotGroupItemSchema, IPlotGroupSchema } from "../types";
 
 export const plotGroupItemTotal = (plotGroupItems: IPlotGroupItemSchema[]) => {
   const total = plotGroupItems.reduce((prev, { quantity, rate }) => {
@@ -24,8 +20,7 @@ export const categoryTotal = (plotGroups: IPlotGroupSchema[]) => {
   return plotGroups.reduce((prev, { plotGroupItems, plots }) => {
     return (
       prev +
-      plotGroupTotal(plotGroupItems || [], plots.split(",").length) *
-        plots.split(",").length
+      plotGroupTotal(plotGroupItems || [], plots.split(",").length)
     );
   }, 0) as number;
 };

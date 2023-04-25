@@ -1,20 +1,10 @@
-import { useContext, Fragment } from "react";
 import { useQuery } from "@apollo/client";
+import { Fragment, useContext } from "react";
+
 import { GET_SUMMARY } from "../../../apollo/queries";
-import { IPlotCategorySchema } from "../../../types";
 import ProjectContext from "../../../context/project";
-import {
-  categoryTotal,
-  categoryTotalBlocks,
-  categoryTotalBricks,
-  currency,
-  grandTotal,
-  grandTotalBlocks,
-  grandTotalBricks,
-  plotGroupTotal,
-  totalBlocks,
-  totalBricks,
-} from "../../../helpers";
+import { categoryTotal, categoryTotalBlocks, categoryTotalBricks, currency, grandTotal, grandTotalBlocks, grandTotalBricks, plotGroupTotal, totalBlocks, totalBricks } from "../../../helpers";
+import { IPlotCategorySchema } from "../../../types";
 
 const Summary = () => {
   const {

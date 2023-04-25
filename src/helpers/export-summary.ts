@@ -1,15 +1,9 @@
 import * as FileSaver from "file-saver";
 import XLSX from "sheetjs-style";
+
 import { IPlotCategorySchema } from "../types";
-import {
-  grandTotal,
-  grandTotalBlocks,
-  grandTotalBricks,
-  plotGroupItemTotal,
-  totalBlocks,
-  totalBricks,
-} from "./totals";
 import { currency } from "./intl-formats";
+import { grandTotal, grandTotalBlocks, grandTotalBricks, plotGroupItemTotal, totalBlocks, totalBricks } from "./totals";
 
 const sortByPlot = (_a: any, _b: any) => {
   let a = _a.PLOT;
@@ -34,6 +28,7 @@ const sortByPlot = (_a: any, _b: any) => {
 };
 
 const exportSummary = async (
+  contract: string,
   plotCategoryData: IPlotCategorySchema[],
   sundriesPercentage: number
 ) => {
@@ -56,8 +51,8 @@ const exportSummary = async (
           PLOT: p.replaceAll(" ", ""),
           // Space between cells
           "": "",
-          LABOUR: `£${currency.format(total)}`,
-          SUNDRIES: `£${currency.format(total * (sundriesPercentage / 100))}`,
+          LABOUR: currency.format(total),
+          SUNDRIES: currency.format(total * (sundriesPercentage / 100)),
           " ": "",
           BRICKS: totalBricks(pg.plotGroupItems || []),
           BLOCKS: totalBlocks(pg.plotGroupItems || []),
@@ -86,10 +81,10 @@ const exportSummary = async (
     {},
     {
       PLOT: "TOTAL",
-      LABOUR: `£${currency.format(grandTotal(plotCategoryData || []))}`,
-      SUNDRIES: `£${currency.format(
+      LABOUR: currency.format(grandTotal(plotCategoryData || [])),
+      SUNDRIES: currency.format(
         grandTotal(plotCategoryData || []) * (sundriesPercentage / 100)
-      )}`,
+      ),
       BRICKS: grandTotalBricks(plotCategoryData || []),
       BLOCKS: grandTotalBlocks(plotCategoryData || []),
     }
@@ -99,7 +94,7 @@ const exportSummary = async (
   const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
   const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
   const data = new Blob([excelBuffer], { type: fileType });
-  FileSaver.saveAs(data, "test-summary" + fileExtention);
+  FileSaver.saveAs(data, contract + fileExtention);
 };
 
 export default exportSummary;
